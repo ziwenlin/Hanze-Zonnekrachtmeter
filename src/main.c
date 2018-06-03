@@ -2,7 +2,10 @@
 #include "com.h"
 #include "DS3231.h"
 
-byte hour = 0, minute = 0, second = 0;
+byte hour = 0, minute = 0, second = 0,
+    dow = 1, day = 1, month = 1, year = 20;
+unsigned int year1 = 2000;
+
 unsigned int flag = 0;
 
 void interrupt isr(void) {
@@ -36,7 +39,8 @@ void main(void) {
 
 void loop() {
     getTime(&hour, &minute, &second);
-    printf("%#2d:%2d:%2d\n\r", hour, minute, second);
+    getDate(&day, &month, &year);
+    printf("%4d/%2d/%2d-%2d:%2d:%2d\n\r", year1 + year, month, day, hour, minute, second);
 }
 
 void delay(unsigned int delay) {

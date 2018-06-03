@@ -19,24 +19,24 @@ extern "C" {
 #define DS3231_DAYADDRESS 0x03
 #define DS3231_DATEADDRESS 0x04
 
-    typedef union {
-        struct {
-            byte hour0 : 4;
-            byte hour1 : 1;
-            byte hour2 : 1;
-            byte hour3 : 1;
-        };
-        byte hour;
-    } HOUR_t;
+typedef union {
+    struct {
+        byte hour0 : 4;
+        byte hour1 : 1;
+        byte hour2 : 1;
+        byte mode : 1;
+    };
+    byte hour;
+} HOUR_t;
 
-    typedef union {
-        struct {
-            byte month0:4;
-            byte month1:3;
-            byte century:1;
-        };
-        byte month;
-    } MONTH_t;
+typedef union {
+    struct {
+        byte month0:4;
+        byte month1:3;
+        byte century:1;
+    };
+    byte month;
+} MONTH_t;
     
 typedef union {
     struct {
@@ -50,15 +50,30 @@ void getTime(byte *hour, byte *minute, byte *second);
 void getDate(byte *day, byte *month, byte *year);
 void getDay(byte *day);
 
-void toSeconds(byte *second);
-void toMinutes(byte *minute);
+//void setRTC(byte second, byte minute, byte hour, byte dow, byte day, byte month, byte year);
+void setRTC(byte second, byte minute, byte hour, byte day, byte month, byte year);
+void setDay(byte day);
+
+#define toSeconds(second) bcdtodec(second)
+#define toMinutes(minute) bcdtodec(minute)
+#define toDay(day) bcdtodec(day)
+#define toYear(year) bcdtodec(year)
+
+#define trSeconds(second) dectobcd(second)
+#define trMinutes(minute) dectobcd(minute)
+#define trDay(day) dectobcd(day)
+#define trYear(year) dectobcd(year)
+#define trHour(hour) dectobcd(hour)
+
 void toHour(byte *hour);
-void toDate(byte *day);
-void toMonth(byte *month);
-void toYear(byte *year);
+void toMonth(byte *month, byte *year);
+
+void trMonth(byte *month, byte *year);
 
 void bcdtodec(byte *dec);
-    
+void dectobcd(byte *bcd);
+
+
 #ifdef	__cplusplus
 }
 #endif

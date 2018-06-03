@@ -107,7 +107,7 @@ void _EUSART1Init(const unsigned long BRate) {
     PIE1bits.RC1IE = 0; //Enable/Disable Rx interupt USART1
     PIE1bits.TX1IE = 0; //Enable/Disable Tx interupt USART1
     TXSTA1 = 0xA0; //Zend register
-    RCSTA1 = 0x80; //Ontvang register
+    RCSTA1 = 0x90; //Ontvang register
     BAUDCON1 = 0x40; //Baud register
     SPBRG1 = (byte) ((_XTAL_FREQ / BRate / 64) - 1); //Baud rate generator register
 }
