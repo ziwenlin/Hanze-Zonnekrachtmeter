@@ -32,3 +32,5 @@ extern "C" {
 
 typedef unsigned char byte;
 void interrupt isr(void);
+void loop();
+void delay(unsigned int delay);

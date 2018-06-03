@@ -1,22 +1,18 @@
 #include "DS3231.h"
 
 void getTime(byte *hour, byte *minute, byte *second) {
-    TIME_t time;
-    time.hour->hour = hour;
-    time.minute->bcd = minute;
-    time.second->bcd = second;
     _I2CStart();
     _I2CAddress(DS3231_ADDRESS, WRITE);
     _I2CSend(DS3231_TIMEADDRESS);
     _I2CRepeatedStart();
     _I2CAddress(DS3231_ADDRESS, READ);
-    _I2CReceive(time.second->bcd, ACK);
-    _I2CReceive(time.minute->bcd, ACK);
-    _I2CReceive(time.hour->hour, NACK);
+    _I2CReceive(second, ACK);
+    _I2CReceive(minute, ACK);
+    _I2CReceive(hour, NACK);
     _I2CStop();
-    toSeconds(time.second);
-    toMinutes(time.minute);
-    toHour(time.hour);
+    toSeconds(second);
+    toMinutes(minute);
+    toHour(hour);
 }
 
 void getDate(byte *date, byte *month, byte *year) {
@@ -31,18 +27,24 @@ void getDate(byte *date, byte *month, byte *year) {
     _I2CStop();
 }
 void getDay(byte *day){
-    
+    _I2CStart();
+    _I2CAddress(DS3231_ADDRESS, WRITE);
+    _I2CSend(DS3231_DAYADDRESS);
+    _I2CRepeatedStart();
+    _I2CAddress(DS3231_ADDRESS, READ);
+    _I2CReceive(day, NACK);
+    _I2CStop();
 }
 
-void toSeconds(BCD_t *sec) {
+void toSeconds(byte *sec) {
     bcdtodec(sec);
 }
 
-void toMinutes(BCD_t *minute) {
+void toMinutes(byte *minute) {
     bcdtodec(minute);
 }
 
-void toHour(HOUR_t *hour) {
+void toHour(byte *hour) {
     
 //    if (*hour & 0x40) { /* AM/PM */
 //        if (*hour & 0x20) { /* PM */
@@ -57,11 +59,21 @@ void toHour(HOUR_t *hour) {
 //        bcdtodec(*hour);
 //    }
 }
-void toDate(BCD_t *date);
-void toMonth(MONTH_t *month);
-void toYear(BCD_t *year);
 
-void bcdtodec(BCD_t *bcd) {
-//    *bcd = (*bcd & 0x0F) + (((*bcd & 0xF0) >> 4) * 10);
-    *bcd->bcd = (bcd->bcd0) + (bcd->bcd1 * 10);
+void toDate(byte *date) {
+    bcdtodec(date);
+}
+
+void toMonth(byte *month) {
+    
+}
+
+void toYear(byte *year) {
+    bcdtodec(year);
+}
+
+void bcdtodec(byte *dec) {
+    BCD_t bcd;
+    bcd.bcd = *dec;
+    *dec = (bcd.bcd0) + (bcd.bcd1) * 10;
 }

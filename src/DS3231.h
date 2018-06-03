@@ -16,6 +16,7 @@ extern "C" {
 #include "com.h"
 #define DS3231_ADDRESS 0x68
 #define DS3231_TIMEADDRESS 0x00
+#define DS3231_DAYADDRESS 0x03
 #define DS3231_DATEADDRESS 0x04
 
     typedef union {
@@ -25,7 +26,7 @@ extern "C" {
             byte hour2 : 1;
             byte hour3 : 1;
         };
-        byte *hour;
+        byte hour;
     } HOUR_t;
 
     typedef union {
@@ -37,39 +38,27 @@ extern "C" {
         byte month;
     } MONTH_t;
     
-    typedef union {
-        struct {
-            byte bcd0 : 4;
-            byte bcd1 : 4;
-        };
-        byte *bcd;
-    } BCD_t;
+typedef union {
+    struct {
+        byte bcd0 : 4;
+        byte bcd1 : 4;
+    };
+    byte bcd;
+} BCD_t;
 
-    typedef struct {
-        BCD_t *year;
-        MONTH_t *month;
-        BCD_t *day;
-    } DATE_t;
-    
-    typedef struct {
-        HOUR_t *hour;
-        BCD_t *minute;
-        BCD_t *second;
-    } TIME_t;
+void getTime(byte *hour, byte *minute, byte *second);
+void getDate(byte *day, byte *month, byte *year);
+void getDay(byte *day);
 
-    void getTime(byte *hour, byte *minute, byte *second);
-    void getDate(byte *day, byte *month, byte *year);
-    void getDay(byte *day);
-    
-    void toSeconds(BCD_t *second);
-    void toMinutes(BCD_t *minute);
-    void toHour(HOUR_t *hour);
-    void toDate(BCD_t *day);
-    void toMonth(MONTH_t *month);
-    void toYear(BCD_t *year);
-    
-    void bcdtodec(BCD_t *dec);
+void toSeconds(byte *second);
+void toMinutes(byte *minute);
+void toHour(byte *hour);
+void toDate(byte *day);
+void toMonth(byte *month);
+void toYear(byte *year);
 
+void bcdtodec(byte *dec);
+    
 #ifdef	__cplusplus
 }
 #endif
