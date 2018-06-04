@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
 #include "main.h"
-#include "com.h"
+#include "I2C.h"
 #define DS3231_ADDRESS 0x68
 #define DS3231_TIMEADDRESS 0x00
 #define DS3231_DAYADDRESS 0x03
@@ -21,38 +21,38 @@ extern "C" {
 
 typedef union {
     struct {
-        byte hour0 : 4;
-        byte hour1 : 1;
-        byte hour2 : 1;
-        byte mode : 1;
+        uint8_t hour0 : 4;
+        uint8_t hour1 : 1;
+        uint8_t hour2 : 1;
+        uint8_t mode : 1;
     };
-    byte hour;
+    uint8_t hour;
 } HOUR_t;
 
 typedef union {
     struct {
-        byte month0:4;
-        byte month1:3;
-        byte century:1;
+        uint8_t month0:4;
+        uint8_t month1:3;
+        uint8_t century:1;
     };
-    byte month;
+    uint8_t month;
 } MONTH_t;
     
 typedef union {
     struct {
-        byte bcd0 : 4;
-        byte bcd1 : 4;
+        uint8_t bcd0 : 4;
+        uint8_t bcd1 : 4;
     };
-    byte bcd;
+    uint8_t bcd;
 } BCD_t;
 
-void getTime(byte *hour, byte *minute, byte *second);
-void getDate(byte *day, byte *month, byte *year);
-void getDay(byte *day);
+void getTime(uint8_t *hour, uint8_t *minute, uint8_t *second);
+void getDate(uint8_t *day, uint8_t *month, uint8_t *year);
+void getDay(uint8_t *day);
 
 //void setRTC(byte second, byte minute, byte hour, byte dow, byte day, byte month, byte year);
-void setRTC(byte second, byte minute, byte hour, byte day, byte month, byte year);
-void setDay(byte day);
+void setRTC(uint8_t second, uint8_t minute, uint8_t hour, uint8_t day, uint8_t month, uint8_t year);
+void setDay(uint8_t day);
 
 #define toSeconds(second) bcdtodec(second)
 #define toMinutes(minute) bcdtodec(minute)
@@ -65,13 +65,13 @@ void setDay(byte day);
 #define trYear(year) dectobcd(year)
 #define trHour(hour) dectobcd(hour)
 
-void toHour(byte *hour);
-void toMonth(byte *month, byte *year);
+void toHour(uint8_t *hour);
+void toMonth(uint8_t *month, uint8_t *year);
 
-void trMonth(byte *month, byte *year);
+void trMonth(uint8_t *month, uint8_t *year);
 
-void bcdtodec(byte *dec);
-void dectobcd(byte *bcd);
+void bcdtodec(uint8_t *dec);
+void dectobcd(uint8_t *bcd);
 
 
 #ifdef	__cplusplus

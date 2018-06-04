@@ -1,14 +1,6 @@
-#include "com.h"
+#include "I2C.h"
 
-void _EnableAllInterrupts() {
-
-    RCONbits.IPEN = 0;
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
-
-}
-
-void _I2CAddress(byte address, byte readnwrite) {
+void _I2CAddress(uint8_t address, uint8_t readnwrite) {
     _I2CSend(address * 2 + readnwrite);
 }
 
@@ -16,7 +8,7 @@ void _I2CWait() {
     while ((SSPSTAT & 0x04) || (SSPCON2 & 0x1F)); //Transmit is in progress
 }
 
-void _I2CReceive(byte *data, byte ack) {
+void _I2CReceive(uint8_t *data, uint8_t ack) {
     _I2CWait();
     SSPCON2bits.RCEN = 1;
     _I2CWait();
@@ -28,7 +20,7 @@ void _I2CReceive(byte *data, byte ack) {
     while (PIR2bits.BCLIF == 1); /* Error occurred <---> Check Pullup Resistors */
 }
 
-void _I2CSend(byte data) {
+void _I2CSend(uint8_t data) {
     _I2CWait();
     SSPBUF = data;
     while (SSPSTATbits.BF == 1);
@@ -62,7 +54,7 @@ void _I2CRepeatedStart() {
     } while (PIR2bits.BCLIF == 1); /* Error occurred <---> Check Pullup Resistors */
 }
 
-void _I2CInit(const unsigned long BRate) {
+void _I2CInit(unsigned long BRate) {
     SSPCON1bits.SSPEN = 0; /* Disable I2C I/O */
     TRISCbits.TRISC4 = 1; /* Pin SDA is input */
     TRISCbits.TRISC3 = 1; /* Pin SCL is input */
@@ -79,40 +71,4 @@ void _I2CInit(const unsigned long BRate) {
     PIE2bits.BCLIE = 1;
     //    IPR2bits.BCLIP = 1;
     SSPCON1bits.SSPEN = 1; /* Enable I2C I/O */
-}
-
-void _SPIInit() {
-    TRISCbits.TRISC5 = 0; // Pin SDO is output:
-    TRISCbits.TRISC4 = 1; // Pin SDI is input:
-    TRISCbits.TRISC3 = 0; // Pin SCK is output:
-    TRISAbits.TRISA5 = 0; // Pin SS is output:
-    SSPSTATbits.SMP = 1; // Sample Time bit: Data sampeling in het einde van de bit output tijd
-    SSPSTATbits.CKE = 0; // Clock Edge Select bit: Zending gebeurt op de rising edge
-    SSPCON1bits.WCOL = 0; // Write Collision Detect bit:
-    SSPCON1bits.SSPOV = 0; // Receive Overflow Indicator bit:
-    SSPCON1bits.CKP = 0; // Clock Polarity bit: Idle state van de clock op low 
-    SSPCON1bits.SSPM = 0b0010; // Master Synchronous Serial Port Mode Select bit: Clock snelheid /64, Mastermode
-
-    // Master Synchronous Serial Port
-    PIR1bits.SSPIF = 0; // Interrupt Flag bit
-    PIE1bits.SSPIE = 0; // Interrupt Enable bit:
-    IPR1bits.SSPIP = 0; // Interrupt Priority bit: Zet op 1 bij foutmeldingen
-    SSPCON1bits.SSPEN = 1; // Enable bit: Alle (TRISx) pinnen moeten goed zijn ingesteld, voordat deze geset wordt
-
-}
-
-void _EUSART1Init(const unsigned long BRate) {
-    TRISCbits.TRISC6 = 0; //Tx1 Output
-    TRISCbits.TRISC7 = 0; //Rx1 Input
-    PIE1bits.RC1IE = 0; //Enable/Disable Rx interupt USART1
-    PIE1bits.TX1IE = 0; //Enable/Disable Tx interupt USART1
-    TXSTA1 = 0xA0; //Zend register
-    RCSTA1 = 0x90; //Ontvang register
-    BAUDCON1 = 0x40; //Baud register
-    SPBRG1 = (byte) ((_XTAL_FREQ / BRate / 64) - 1); //Baud rate generator register
-}
-
-void putch(char c) {
-    while (TXSTA1bits.TRMT == 0);
-    TXREG1 = c;
 }

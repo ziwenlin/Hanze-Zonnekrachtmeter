@@ -1,12 +1,21 @@
 #include "main.h"
-#include "com.h"
+#include "SPI.h"
+#include "EUSART.h"
+#include "I2C.h"
 #include "DS3231.h"
+#include "DS18B20.h"
+#include "onewire.h"
 
-byte hour = 0, minute = 0, second = 0,
-    dow = 1, day = 1, month = 1, year = 20;
-unsigned int year1 = 2000;
+uint8_t hour = 0, minute = 0, second = 0,
+        dow = 1, day = 1, month = 1, year = 20;
+uint16_t year1 = 2000;
 
-unsigned int flag = 0;
+DBYTE timer0;
+
+float temp = 0;
+
+uint8_t start = 1;
+uint8_t flag = 0;
 
 void interrupt isr(void) {
     flag++;
@@ -20,30 +29,40 @@ void interrupt isr(void) {
     if (PIR2bits.BCLIF == 1) {
         PIR2bits.BCLIF = 0;
     }
-
-}
-
-void main(void) {
-    _EUSART1Init(9600);
-    _I2CInit(100000);
-    ei();
-    printf("--------START--------\n\r");
-    getTime(&hour, &minute, &second);
-    printf("%#2d:%2d:%2d\n\r", hour, minute, second);
-
-    while (1) {
-        loop();
-        delay(1);
+    if (INTCONbits.TMR0IF == 1) {
+        INTCONbits.TMR0IF = 0;
+        TMR0H = timer0.b;
+        TMR0L = timer0.a;
+        //        TMR0H = 0x48;
+        //        TMR0L = 0xE5;
+        start = 1;
     }
 }
 
+void main(void) {
+    setup();
+    ei();
+    printf("\n\n\n\n\r");
+    printf("--------START--------\n\r");
+    while (1) {
+        loop();
+        start = 0;
+        while (!start);
+    }
+}
+
+void setup() {
+    _UART1Init(9600);
+    _I2CInit(100000);
+    timer0init(&timer0, 1);
+//    ANCON0bits.ANSEL1 = 0;
+}
+
 void loop() {
+//    broadcastConvert();
+//    temp = getTemperature(address);
     getTime(&hour, &minute, &second);
     getDate(&day, &month, &year);
     printf("%4d/%2d/%2d-%2d:%2d:%2d\n\r", year1 + year, month, day, hour, minute, second);
-}
-
-void delay(unsigned int delay) {
-    for (unsigned int i = 0; i < delay; i++)
-        _delay(0xFFFF);
+    printf("%4d,%2d,%2d,%2d,%2d,%2d,%f\n\r", year1 + year, month, day, hour, minute, second, temp);
 }

@@ -4,7 +4,7 @@
 //    
 //}
 
-void setRTC(byte second, byte minute, byte hour, byte day, byte month, byte year) {
+void setRTC(uint8_t second, uint8_t minute, uint8_t hour, uint8_t day, uint8_t month, uint8_t year) {
 
     trSeconds(&second);
     trMinutes(&minute);
@@ -30,7 +30,7 @@ void setRTC(byte second, byte minute, byte hour, byte day, byte month, byte year
     _I2CStop();
 }
 
-void setDay(byte day) {
+void setDay(uint8_t day) {
     _I2CStart();
     _I2CAddress(DS3231_ADDRESS, WRITE);
     _I2CSend(DS3231_DAYADDRESS);
@@ -38,7 +38,7 @@ void setDay(byte day) {
     _I2CStop();
 }
 
-void getTime(byte *hour, byte *minute, byte *second) {
+void getTime(uint8_t *hour, uint8_t *minute, uint8_t *second) {
     _I2CStart();
     _I2CAddress(DS3231_ADDRESS, WRITE);
     _I2CSend(DS3231_TIMEADDRESS);
@@ -53,7 +53,7 @@ void getTime(byte *hour, byte *minute, byte *second) {
     toHour(hour);
 }
 
-void getDate(byte *day, byte *month, byte *year) {
+void getDate(uint8_t *day, uint8_t *month, uint8_t *year) {
     _I2CStart();
     _I2CAddress(DS3231_ADDRESS, WRITE);
     _I2CSend(DS3231_DATEADDRESS);
@@ -68,7 +68,7 @@ void getDate(byte *day, byte *month, byte *year) {
     toDay(day);
 }
 
-void getDay(byte *day) {
+void getDay(uint8_t *day) {
     _I2CStart();
     _I2CAddress(DS3231_ADDRESS, WRITE);
     _I2CSend(DS3231_DAYADDRESS);
@@ -78,7 +78,7 @@ void getDay(byte *day) {
     _I2CStop();
 }
 
-void trMonth(byte *month, byte *year) {
+void trMonth(uint8_t *month, uint8_t *year) {
     dectobcd(month);
     MONTH_t m;
     m.month = *month;
@@ -86,7 +86,7 @@ void trMonth(byte *month, byte *year) {
     *month = m.month;
 }
 
-void toHour(byte *hour) {
+void toHour(uint8_t *hour) {
     HOUR_t h;
     h.hour = *hour;
     *hour = h.hour0 + h.hour1 * 10;
@@ -99,20 +99,20 @@ void toHour(byte *hour) {
     }
 }
 
-void toMonth(byte *month, byte *year) {
+void toMonth(uint8_t *month, uint8_t *year) {
     MONTH_t m;
     m.month = *month;
     *month = (m.month0) + (m.month1) * 10;
     *year += m.century * 100;
 }
 
-void bcdtodec(byte *dec) {
+void bcdtodec(uint8_t *dec) {
     BCD_t bcd;
     bcd.bcd = *dec;
     *dec = (bcd.bcd0) + (bcd.bcd1) * 10;
 }
 
-void dectobcd(byte *bcd) {
+void dectobcd(uint8_t *bcd) {
     if (*bcd > 100) return;
     BCD_t dec;
     dec.bcd1 = (*bcd / 10);
