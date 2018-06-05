@@ -33,6 +33,7 @@ int stringToInteger(String text) {
     size(600, 600);
   }
   public void setup(){
+	frameRate(1);				//tijd per seconde 
     textFont(createFont("Arial",10),10);
 
   // Both x and y data set here.  
@@ -41,26 +42,31 @@ int stringToInteger(String text) {
 
    
   // Assen en tekst bij assen.
+  lineChart.setAxisColour(255);
+  lineChart.setAxisLabelColour(255);
+  lineChart.setAxisValuesColour(255);
   lineChart.showXAxis(true);       //Laten zien(true) of verbergen(false) van de X-as
   lineChart.showYAxis(true);       //Laten zien of verbergen van de Y-as
   lineChart.setMinY(0);            //Een minimale waarde instellen voor de Y-as
   lineChart.setMinX(0);
   lineChart.setXAxisLabel("Tijd in seconden");      //Tekst voor op de X-as
   lineChart.setYAxisLabel("Temperatuur in graden celcius\n");           //Tekst voor op de Y-as
+  lineChart.setAxisColour(255);
     
   lineChart.setYFormat("####");  // Hoeveel decimalen Y-as
   lineChart.setXFormat("0");    // Hoeveel decimalen X-as
    
   lineChart.setLineWidth(1);       //Dikte van de lijn
   lineChart.setPointSize(0);       //Dikte van de punten op de lijn
+  lineChart.setLineColour(255);
 }
   public void draw() {
-  background(255);                  //Kleur voor de achtergrond
+  background(55);                  //Kleur voor de achtergrond
   textSize(14);
   lineChart.draw(30,30,width-30,height-30);
    
   // Draw a title over the top of the chart.
-  fill(13,0,117);                    //Kleur tekst
+  fill(200,200,0);                    //Kleur tekst
   textSize(20);                      //Grootte tekst
   text("Temperatuur sensor", 70,30);        //De tekst en de positie
   textSize(11);

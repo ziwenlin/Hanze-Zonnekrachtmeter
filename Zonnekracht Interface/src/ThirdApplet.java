@@ -33,6 +33,7 @@ int stringToInteger(String text) {
     size(600, 600);
   }
   public void setup(){
+	frameRate(1);
     textFont(createFont("Arial",10),10);
 
   // Both x and y data set here.  
