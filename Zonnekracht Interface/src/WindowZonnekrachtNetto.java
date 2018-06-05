@@ -79,7 +79,7 @@ public class WindowZonnekrachtNetto extends PApplet {
 		textSize(11);
 		text("Real-Time data van de zonnekracht in Volt.", 70, 45);
 		xValues.add(x);
-		yValues.add((float) stringToInteger(getal));
+		yValues.add((float) Extras.stringToInteger(getal));
 		float xValueArray[] = new float[xValues.size()];
 		for (int i = 0; i < xValues.size(); i++)
 			xValueArray[i] = xValues.get(i);
