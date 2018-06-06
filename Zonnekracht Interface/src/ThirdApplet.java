@@ -2,21 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 import org.gicentre.utils.stat.XYChart;
 import processing.core.PApplet;
-import processing.serial.Serial;
 
 public class ThirdApplet extends PApplet {
 
-
+	XYChart lineChart;
 	String getal = "0";
 	float x = 0;
 	List<Float> xValues = new ArrayList<Float>();
 	List<Float> yValues = new ArrayList<Float>();
-
-	XYChart lineChart;
-
-	public void serialEvent(Serial p) {
-		getal = p.readString();
-	}
 
 	public void settings() {
 		size(600, 600);
@@ -38,8 +31,8 @@ public class ThirdApplet extends PApplet {
 		lineChart.showYAxis(true); // Laten zien of verbergen van de Y-as
 		lineChart.setMinY(0); // Een minimale waarde instellen voor de Y-as
 		lineChart.setMinX(0);
-		lineChart.setXAxisLabel("Tijd in seconden"); // Tekst voor op de X-as
-		lineChart.setYAxisLabel("Zonnekracht\n"); // Tekst voor op de Y-as
+		lineChart.setXAxisLabel("Tijd [s]"); // Tekst voor op de X-as
+		lineChart.setYAxisLabel("Zonkracht [W/m²]\n"); // Tekst voor op de Y-as
 		lineChart.setAxisColour(255);
 
 		lineChart.setYFormat("####"); // Hoeveel decimalen Y-as

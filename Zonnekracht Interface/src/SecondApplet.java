@@ -2,13 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.gicentre.utils.stat.XYChart;
 import processing.core.PApplet;
-import processing.serial.Serial;
 
 public class SecondApplet extends PApplet {
 
 	XYChart lineChart;
-	Serial myPort; // The serial port
-
 	String getal = "0";
 	float x = 0;
 	List<Float> xValues = new ArrayList<Float>();
@@ -31,10 +28,9 @@ public class SecondApplet extends PApplet {
 		lineChart.setAxisValuesColour(255);
 		lineChart.showXAxis(true); // Laten zien(true) of verbergen(false) van de X-as
 		lineChart.showYAxis(true); // Laten zien of verbergen van de Y-as
-		lineChart.setMinY(0); // Een minimale waarde instellen voor de Y-as
 		lineChart.setMinX(0);
-		lineChart.setXAxisLabel("Tijd in seconden"); // Tekst voor op de X-as
-		lineChart.setYAxisLabel("Temperatuur in graden celcius\n"); // Tekst voor op de Y-as
+		lineChart.setXAxisLabel("Tijd [s]"); // Tekst voor op de X-as
+		lineChart.setYAxisLabel("Temperatuur [°C]\n"); // Tekst voor op de Y-as
 		lineChart.setAxisColour(255);
 
 		lineChart.setYFormat("####"); // Hoeveel decimalen Y-as
