@@ -33,8 +33,8 @@ public class SecondApplet extends PApplet {
 		lineChart.setYAxisLabel("Temperatuur [°C]\n"); // Tekst voor op de Y-as
 		lineChart.setAxisColour(255);
 
-		lineChart.setYFormat("####"); // Hoeveel decimalen Y-as
-		lineChart.setXFormat("0"); // Hoeveel decimalen X-as
+		//lineChart.setYFormat("####"); // Hoeveel decimalen Y-as
+		//lineChart.setXFormat("0"); // Hoeveel decimalen X-as
 
 		lineChart.setLineWidth(1); // Dikte van de lijn
 		lineChart.setPointSize(0); // Dikte van de punten op de lijn

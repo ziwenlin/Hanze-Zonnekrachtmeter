@@ -35,8 +35,8 @@ public class ThirdApplet extends PApplet {
 		lineChart.setYAxisLabel("Zonkracht [W/m²]\n"); 	// Tekst voor op de Y-as
 		lineChart.setAxisColour(255);					// Kleur van de assen
 
-		lineChart.setYFormat("####"); 					// Hoeveel decimalen Y-as
-		lineChart.setXFormat("0"); 						// Hoeveel decimalen X-as
+		//lineChart.setYFormat("####"); 					// Hoeveel decimalen Y-as
+		//lineChart.setXFormat("0"); 						// Hoeveel decimalen X-as
 
 		lineChart.setLineWidth(1); 						// Dikte van de lijn
 		lineChart.setPointSize(0); 						// Dikte van de punten op de lijn
