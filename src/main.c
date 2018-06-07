@@ -51,7 +51,7 @@ void setup() {
     timer0init(&timer0, 1);
     ANCON0bits.ANSEL1 = 0;
     ei();
-    sprintf(&message, "append file.csv");
+    sprintf(&message, "append file.csv\n");
     _UART2Send(&message);
 }
 

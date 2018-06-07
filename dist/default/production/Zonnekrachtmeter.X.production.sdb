@@ -199,11 +199,11 @@
 [v __I2CRepeatedStart _I2CRepeatedStart `(v  1 e 0 0 ]
 "57
 [v __I2CInit _I2CInit `(v  1 e 0 0 ]
-"20 D:\Workspaces\MPLABXProjects\Zonnekrachtmeter.X\src/main.c
+"19 D:\Workspaces\MPLABXProjects\Zonnekrachtmeter.X\src/main.c
 [v _isr isr `II(v  1 e 0 0 ]
-"39
+"38
 [v _main main `(v  1 e 0 0 ]
-"48
+"47
 [v _setup setup `(v  1 e 0 0 ]
 "58
 [v _loop loop `(v  1 e 0 0 ]
@@ -814,15 +814,13 @@
 "15
 [v _tempAddress tempAddress `[8]uc  1 e 8 0 ]
 "17
-[v _message message `*.39uc  1 e 2 0 ]
-"18
-[v _string string `[80]uc  1 e 80 0 ]
-"39
+[v _message message `[80]uc  1 e 80 0 ]
+"38
 [v _main main `(v  1 e 0 0 ]
 {
-"46
+"45
 } 0
-"48
+"47
 [v _setup setup `(v  1 e 0 0 ]
 {
 "56
@@ -1310,8 +1308,8 @@
 [v __UART1Send@message message `*.39uc  1 p 2 14 ]
 "16
 } 0
-"20 D:\Workspaces\MPLABXProjects\Zonnekrachtmeter.X\src/main.c
+"19 D:\Workspaces\MPLABXProjects\Zonnekrachtmeter.X\src/main.c
 [v _isr isr `II(v  1 e 0 0 ]
 {
-"37
+"36
 } 0
