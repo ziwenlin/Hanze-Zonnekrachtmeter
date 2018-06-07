@@ -1,8 +1,7 @@
 #include "main.h"
-#include "onewire.h"
 
-void timer0init(DBYTE *timer0, uint8_t seconds) {
-    timer0->ab = (uint16_t)(0x0BDC) + (0xF424/8*(8-seconds)); /* TMR0L en TMR0H */
+void timer0init(DBYTE *timer0, float seconds) {
+    timer0->ab = (uint16_t)((0x0BDC) + (0xF424/8.0*(8.0-seconds))); /* TMR0L en TMR0H */
     T0CONbits.TMR0ON = 1;
     T0CONbits.T08BIT = 0;
     T0CONbits.T0CS = 0;

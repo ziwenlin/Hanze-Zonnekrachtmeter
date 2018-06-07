@@ -16,6 +16,8 @@ extern "C" {
 #include "fuses.h"
 #include "xc.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
     
 typedef unsigned char uint8_t;
 typedef unsigned int uint16_t;
@@ -28,11 +30,12 @@ typedef union {
     uint16_t ab;
 } DBYTE;
 
-void timer0init(DBYTE *timer0, uint8_t seconds);
+void timer0init(DBYTE *timer0, float seconds);
+void getADC9(float *zonnekracht);
+void main(void);
 void interrupt isr(void);
 void loop();
 void setup();
-
 
 #ifdef	__cplusplus
 }
