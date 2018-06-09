@@ -1,16 +1,14 @@
-import Windows.BedieningsPaneel;
-import Windows.TemperatuurPaneel;
-import Windows.ZonnekrachtNetto;
+package Windows;
 import processing.core.PApplet;
 
 public class Main {
 
 	static BedieningsPaneel paneelBediening = new BedieningsPaneel();
-	static ZonnekrachtNetto paneelZonnekrachtNetto = new ZonnekrachtNetto();
 	static TemperatuurPaneel paneelTemperatuur = new TemperatuurPaneel();
+	static ZonnekrachtPaneel paneelZonnekracht = new ZonnekrachtPaneel();
 
 	public static void main(String[] args) {
-		/* Serial COM window */
+		/* Serial COM scherm */
 		paneelBediening();
 		paneelZonnekrachtNetto();
 		paneelTemperatuur();
@@ -22,8 +20,8 @@ public class Main {
 	}
 
 	public static void paneelZonnekrachtNetto() {
-		String[] args = { paneelZonnekrachtNetto.getClass().getName() };
-		PApplet.runSketch(args, paneelZonnekrachtNetto);
+		String[] args = { paneelZonnekracht.getClass().getName() };
+		PApplet.runSketch(args, paneelZonnekracht);
 	}
 
 	public static void paneelTemperatuur() {
