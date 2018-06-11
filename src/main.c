@@ -11,6 +11,8 @@ uint8_t hour = 0, minute = 0, second = 0,
 uint16_t year1 = 2000;
 DBYTE timer0;
 float temp = 0, adc = 0;
+float tempAvg = 0, adcAvg = 0;
+uint8_t count = 0;
 uint8_t start = 1;
 uint8_t tempAddress[8] = {0x28, 0x53, 0x44, 0xa3, 0x8, 0x0, 0x0, 0x9b};
 
@@ -51,8 +53,6 @@ void setup() {
     timer0init(&timer0, 1);
     ANCON0bits.ANSEL1 = 0;
     ei();
-    sprintf(&message, "append file.csv\n");
-    _UART2Send(&message);
 }
 
 void loop() {
@@ -61,10 +61,16 @@ void loop() {
     getTime(&hour, &minute, &second);
     getDate(&day, &month, &year);
     getADC9(&adc);
-    sprintf(&message, "%04d/%02d/%02d-%02d:%02d:%02d   Temperatuur: %f C   Voltage: %f V\n", 
-            (year1 + year), month, day, hour, minute, second, temp, adc);
-    _UART1Send(&message);
-    sprintf(&message, "%04d,%02d,%02d,%02d,%02d,%02d,%f,%f\n", 
+    sprintf(&message, "%04d/%02d/%02d-%02d:%02d:%02d   Temperatuur: %f C   Zonnekracht: %f w/m2\n", 
             (year1 + year), month, day, hour, minute, second, temp, adc);
     _UART2Send(&message);
+    tempAvg = (tempAvg * count + temp) / (count + 1);
+    adcAvg = (adcAvg * count + adc) / (count + 1);
+    count++;
+    if (count >= 60){
+        sprintf(&message, "%04d,%02d,%02d,%02d,%02d,%f,%f\n", 
+                (year1 + year), month, day, hour, minute, tempAvg, adcAvg);
+        _UART1Send(&message);
+        count = 0;
+    }
 }
