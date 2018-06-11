@@ -12,10 +12,10 @@ public class SerialManager {
 
 	private static PApplet p;
 	private static Serial myPort;
-	private static List<String> list = new ArrayList<>();
+	public static List<String> list = new ArrayList<>();
 	public static List<Float> zonnekracht = new ArrayList<>();
 	public static List<Float> temperatuur = new ArrayList<>();
-	private static String str;
+	public static String str;
 
 	public SerialManager(PApplet p) {
 		SerialManager.p = p;
@@ -28,7 +28,7 @@ public class SerialManager {
 		}
 		if (Serial.list().length > 0) {
 			myPort = new Serial(p, Serial.list()[0], 9600);
-			myPort.bufferUntil(10);
+			myPort.bufferUntil('\n');
 		}
 	}
 
@@ -42,8 +42,8 @@ public class SerialManager {
 			list.remove(0);
 		}
 
-		// list.add("2018/06/06-15:30:45 Temperatuur: 26.00 C Voltage: 0.30 V");
-
+//		list.add("2018/06/06-15:30:45   Temperatuur: 26.00 C   Voltage: 0.30 V");
+//		textMonitor(p);
 		stringsplitter();
 
 	}
@@ -56,8 +56,8 @@ public class SerialManager {
 		if (b.size() < 7) {
 			return;
 		}
-		temperatuur.add(ExtraFuncties.stringToFloat(b.get(2)));
-		zonnekracht.add(ExtraFuncties.stringToFloat(b.get(5)));
+		temperatuur.add(ExtraFuncties.stringToFloat(b.get(4)));
+		zonnekracht.add(ExtraFuncties.stringToFloat(b.get(9)));
 	}
 
 	public static void textMonitor(PApplet p) {
@@ -76,9 +76,5 @@ public class SerialManager {
 		}
 	}
 
-	public void serialEvent(Serial p) {
-		list.add(p.readString());
-		str = str + p.readString();
-	}
 
 }

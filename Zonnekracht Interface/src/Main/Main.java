@@ -15,9 +15,9 @@ public class Main {
 		/* Serial COM scherm */
 		paneelBediening();
 		/* Grafiek Zonnekracht */
-		// paneelZonnekrachtNetto();
+//		 paneelZonnekrachtNetto();
 		/* Grafiek Temperatuur */
-		// paneelTemperatuur();
+		 paneelTemperatuur();
 	}
 
 	public static void paneelBediening() {

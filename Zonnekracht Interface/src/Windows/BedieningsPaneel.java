@@ -7,11 +7,12 @@ import Buttons.Presets;
 import Serial.SerialManager;
 import processing.core.PApplet;
 import processing.core.PImage;
+import processing.serial.Serial;
 
 public class BedieningsPaneel extends PApplet {
 
-	private SerialManager sm = new SerialManager(this);
-	private Presets preset = new Presets(this);
+	private SerialManager sm;
+	private Presets preset;
 	private int inactivity = 0;
 	private PImage bg;
 	
@@ -23,6 +24,8 @@ public class BedieningsPaneel extends PApplet {
 	public void setup() {
 		frameRate(40);
 		noStroke();
+		sm = new SerialManager(this);
+		preset = new Presets(this);
 		surface.setResizable(true);
 		preset.bedieningspaneel();
 		bg = loadImage("zonnepaneel.jpg");
@@ -60,4 +63,10 @@ public class BedieningsPaneel extends PApplet {
 		loop();
 	}
 
+	public void serialEvent(Serial p) {
+		String str = p.readString();
+		SerialManager.list.add(str);
+		SerialManager.str += str;
+		loop();
+	}
 }

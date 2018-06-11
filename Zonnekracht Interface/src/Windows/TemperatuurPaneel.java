@@ -17,11 +17,12 @@ public class TemperatuurPaneel extends PApplet {
 
 	public void settings() {
 		size(600, 600);
+		noSmooth();
 	}
 
 	public void setup() {
-		surface.setResizable(true); 					// Venster grootte kan worden aangepast
-		frameRate(1); // tijd per seconde
+		surface.setResizable(true); 			// Venster grootte kan worden aangepast
+		frameRate(1); 							// tijd per seconde
 		textFont(createFont("Arial", 10), 10);
 
 		// Both x and y data set here.
@@ -39,6 +40,8 @@ public class TemperatuurPaneel extends PApplet {
 		lineChart.setLineWidth(1); 						// Dikte van de lijn
 		lineChart.setPointSize(0); 						// Dikte van de punten op de lijn
 		lineChart.setLineColour(255);					// Kleur van de lijn
+		lineChart.setYFormat("#.##");
+//		lineChart.setXFormat("0");
 	}
 
 	public void draw() {
@@ -59,6 +62,6 @@ public class TemperatuurPaneel extends PApplet {
 		for (int i = 0; i < xValues.size() && i < SerialManager.temperatuur.size(); i++)
 			yValueArray[i] = SerialManager.temperatuur.get(i);
 		lineChart.setData(xValueArray, yValueArray);
-		x++;
+		x += 1f;
 	}
 }

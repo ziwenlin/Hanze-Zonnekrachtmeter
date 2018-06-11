@@ -17,7 +17,7 @@ public class ExtraFuncties {
 	}
 
 	public static float stringToFloat(String text) {
-		float waarde = 0.0f, d = 1; boolean c = false;
+		float waarde = 0.0f, d = 1; boolean c = false, n = false;
 		for (int i = 0; i < text.length(); i++) {
 			char l = text.charAt(i);
 			if (!c && l >= 48 && l <= 57) {
@@ -30,8 +30,9 @@ public class ExtraFuncties {
 				continue;
 			}
 			if (l == '.') c = true;
+			if (l == '-') n = true;
 		}
-		return waarde;
+		return waarde * ((n) ? -1 : 1);
 	}
 
 	public static List<String> stringCutter(String text) {
