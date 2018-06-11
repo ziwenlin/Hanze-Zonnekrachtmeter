@@ -1,35 +1,63 @@
 package Windows;
 
-import Buttons.ButtonHandler;
+import java.util.ArrayList;
+import java.util.List;
+
+import Buttons.Presets;
 import Serial.SerialManager;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class BedieningsPaneel extends PApplet {
 
 	private SerialManager sm = new SerialManager(this);
-	private ButtonHandler b = new ButtonHandler(this);
-
+	private Presets preset = new Presets(this);
+	private int inactivity = 0;
+	private PImage bg;
+	
 	public void settings() {
-		size(900, 600);
+		size(1080, 640);
+		noSmooth();
 	}
 
 	public void setup() {
-		frameRate(5);
+		frameRate(40);
+		noStroke();
 		surface.setResizable(true);
-		b.newButton(200, 100, 300, 100);
-		b.modeButton(CENTER);
-		b.colorButton(color(90));
-		b.textButton("Start Serial COM");
-		b.textColor(color(255));
-		b.textSize(36);
+		preset.bedieningspaneel();
+		bg = loadImage("zonnepaneel.jpg");
+		imageMode(CENTER);
+		sm.serialInit();
 	}
 
 	public void draw() {
-		background(20);
-		sm.stringsplitter();
-		b.drawButtons();
+		image(bg, width/2, height/2, width, height);
+		sm.serialLoop();
+		preset.draw();
+		
+		if (inactivity > 3) // Inactiviteit tot 3 frames
+			noLoop(); // Energie besparing
+		inactivity++; // Inactiviteit met 1 omhoog
 	}
-
 	
+	public void mouseReleased() {
+		inactivity = 0;
+		loop();
+	}
+	
+	public void mouseDragged() {
+		inactivity = 0;
+		loop();
+	}
+	
+	public void mouseClicked() {
+		inactivity = 0;
+		loop();
+	}
+	
+	public void mouseMoved() {
+		inactivity = 0;
+		loop();
+	}
 
 }

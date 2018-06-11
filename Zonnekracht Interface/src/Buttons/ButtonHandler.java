@@ -14,7 +14,7 @@ public class ButtonHandler {
 		this.p = p;
 	}
 	
-	public void newButton(float a, float b, float c, float d) {
+	public void buttonNew(float a, float b, float c, float d) {
 		button.add(0, new Button(p, a, b, c, d));
 	}
 	
@@ -24,7 +24,7 @@ public class ButtonHandler {
 		}
 	}
 
-	public void modeButton(int mode) {
+	public void buttonMode(int mode) {
 		getButton().setMode(mode);
 	}
 
@@ -40,11 +40,23 @@ public class ButtonHandler {
 		getButton().setTextColor(color);
 	}
 
-	public void colorButton(int color) {
+	public void buttonColor(int color) {
 		getButton().setColor(color);
 	}
 
 	public void textSize(int size) {
 		getButton().setTextSize(size);
+	}
+
+	public void buttonHoverColor(int color) {
+		getButton().setHoverColor(color);
+	}
+
+	public void buttonAlfa(float alfa) {
+		getButton().setAlfa(alfa);
+	}
+
+	public void buttonTask(Runnable task) {
+		getButton().setTask(task);
 	}
 }

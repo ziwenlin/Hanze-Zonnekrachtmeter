@@ -1,9 +1,9 @@
 package Windows;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.gicentre.utils.stat.XYChart;
 
-import Buttons.ExtraFuncties;
 import Serial.SerialManager;
 import processing.core.PApplet;
 

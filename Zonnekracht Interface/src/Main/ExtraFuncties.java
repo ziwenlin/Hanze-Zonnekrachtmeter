@@ -1,4 +1,4 @@
-package Buttons;
+package Main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class ExtraFuncties {
 		List<String> list = new ArrayList<String>();
 		list.add(""); int i = 0;
 		for (char c : text.toCharArray()) {
-			if (c == ' ') {
+			if (c == ' ' || c == '\t') {
 				list.add("");
 				i++;
 				continue;
