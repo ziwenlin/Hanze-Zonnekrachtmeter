@@ -1,21 +1,26 @@
 package Serial;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import Main.ExtraFuncties;
 import processing.core.PApplet;
-import processing.core.PConstants;
 import processing.serial.Serial;
 
 public class SerialManager {
 
-	private static PApplet p;
-	private static Serial myPort;
-	public static List<String> list = new ArrayList<>();
+	public static PApplet p;
+	public static Serial myPort;
+	public static long startTijd = System.currentTimeMillis();
+//	public static LocalDateTime now = LocalDateTime.now();
+//	public static DateTime startTijd = new DateTime(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
+	public static List<String> inputSerial = new ArrayList<>();
+	public static List<Float> tijd = new ArrayList<>();
 	public static List<Float> zonnekracht = new ArrayList<>();
 	public static List<Float> temperatuur = new ArrayList<>();
-	public static String str;
+	public static boolean canSplit = false;
 
 	public SerialManager(PApplet p) {
 		SerialManager.p = p;
@@ -38,8 +43,8 @@ public class SerialManager {
 			serialInit();
 		}
 		
-		while (list.size() > 25) {
-			list.remove(0);
+		while (inputSerial.size() > 25) {
+			inputSerial.remove(0);
 		}
 
 //		list.add("2018/06/06-15:30:45   Temperatuur: 26.00 C   Voltage: 0.30 V");
@@ -49,32 +54,20 @@ public class SerialManager {
 	}
 
 	public static void stringsplitter() {
-		if (list.size() == 0) {
+		if (inputSerial.size() == 0 && !canSplit ) {			// Nullpointerexception voorkomen
 			return;
 		}
-		List<String> b = ExtraFuncties.stringCutter(list.get(list.size() - 1));
+		List<String> b = ExtraFuncties.stringCutter(inputSerial.get(inputSerial.size() - 1));
 		if (b.size() < 7) {
 			return;
 		}
+		canSplit = false;
 		temperatuur.add(ExtraFuncties.stringToFloat(b.get(4)));
 		zonnekracht.add(ExtraFuncties.stringToFloat(b.get(9)));
+//		tijd.add(ExtraFuncties.getMinute(startTijd, ExtraFuncties.splitDateTime(b.get(0))));
+		tijd.add((float) (System.currentTimeMillis() - startTijd)/60000.0f);
 	}
 
-	public static void textMonitor(PApplet p) {
-		if (list.size() == 0) {
-			return;
-		}
-		p.rectMode(PConstants.CORNER);
-		p.textAlign(PConstants.LEFT, PConstants.TOP);
-		p.textSize(32);
-		p.text(list.get(list.size() - 1), 10, 10, p.width - 10, p.height - 10);
-
-		p.textAlign(PConstants.LEFT);
-		p.textSize(16);
-		for (int i = 0; i < list.size(); i++) {
-			p.text(list.get(i), 10, 20 * (i + 10));
-		}
-	}
 
 
 }

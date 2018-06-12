@@ -1,5 +1,6 @@
 package Buttons;
 
+import Windows.BedieningsPaneel;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -35,7 +36,7 @@ public class Button {
 		p.textAlign(mode,mode);
 		p.textSize(textSize);
 		p.text(text, minX, minY-2.5f, maxX, maxY);
-		if (!running && p.mousePressed && hovering && task != null) {
+		if (!running && BedieningsPaneel.mouseP && hovering && task != null) {
 			task.run();
 			running = true;
 		} else {

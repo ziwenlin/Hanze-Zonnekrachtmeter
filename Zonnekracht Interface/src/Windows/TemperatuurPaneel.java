@@ -16,13 +16,13 @@ public class TemperatuurPaneel extends PApplet {
 	List<Float> yValues = new ArrayList<Float>();
 
 	public void settings() {
-		size(600, 600);
+		size(1200, 680);
 		noSmooth();
 	}
 
 	public void setup() {
 		surface.setResizable(true); 			// Venster grootte kan worden aangepast
-		frameRate(1); 							// tijd per seconde
+		frameRate(5); 							// tijd per seconde
 		textFont(createFont("Arial", 10), 10);
 
 		// Both x and y data set here.
@@ -35,7 +35,7 @@ public class TemperatuurPaneel extends PApplet {
 		lineChart.showXAxis(true); 						// Laten zien(true) of verbergen(false) van de X-as
 		lineChart.showYAxis(true); 						// Laten zien of verbergen van de Y-as
 		lineChart.setMinX(0);							// Een minimale waarde instellen voor de X-as
-		lineChart.setXAxisLabel("Tijd [s]"); 			// Tekst voor op de X-as
+		lineChart.setXAxisLabel("Tijd [min]"); 			// Tekst voor op de X-as
 		lineChart.setYAxisLabel("Temperatuur [°C]\n"); 	// Tekst voor op de Y-as
 		lineChart.setLineWidth(1); 						// Dikte van de lijn
 		lineChart.setPointSize(0); 						// Dikte van de punten op de lijn
@@ -54,14 +54,18 @@ public class TemperatuurPaneel extends PApplet {
 		text("Temperatuur sensor", 70, 30); 			// De tekst en de positie
 		textSize(11);									// Grootte tekst onder titel
 		text("Data van de Temperatuursensor in graden Celcius", 70, 45); // Tekst onder titel
-		xValues.add(x);
-		float xValueArray[] = new float[xValues.size()];
-		for (int i = 0; i < xValues.size() && i < SerialManager.temperatuur.size(); i++)
-			xValueArray[i] = xValues.get(i);
-		float yValueArray[] = new float[xValues.size()];
-		for (int i = 0; i < xValues.size() && i < SerialManager.temperatuur.size(); i++)
+		
+
+		int j = SerialManager.tijd.size();
+		float xValueArray[] = new float[j];
+		for (int i = 0; i < j; i++) {
+			xValueArray[i] = SerialManager.tijd.get(i);
+		}
+		float yValueArray[] = new float[j];
+		for (int i = 0; i < j; i++) {
 			yValueArray[i] = SerialManager.temperatuur.get(i);
+		}
+		
 		lineChart.setData(xValueArray, yValueArray);
-		x += 1f;
 	}
 }

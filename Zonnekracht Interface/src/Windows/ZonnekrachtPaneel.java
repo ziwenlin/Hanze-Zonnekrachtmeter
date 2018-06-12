@@ -1,6 +1,4 @@
 package Windows;
-import java.util.ArrayList;
-import java.util.List;
 import org.gicentre.utils.stat.XYChart;
 
 import Serial.SerialManager;
@@ -10,18 +8,15 @@ public class ZonnekrachtPaneel extends PApplet {
 
 	XYChart lineChart;
 	String getal = "0";
-	float x = 0;
-	List<Float> xValues = new ArrayList<Float>();
-	List<Float> yValues = new ArrayList<Float>();
 
 	public void settings() {
-		size(600, 600);									// De grootte van de window
+		size(1200, 680);									// De grootte van de window
 
 	}
 
 	public void setup() {
 		surface.setResizable(true);				 		// Venster grootte kan worden aangepast
-		frameRate(1);									// Framerate(1) zorgt ervoor dat er een waarde per seconde wordt doorgegeven. 
+		frameRate(5);									// Framerate(1) zorgt ervoor dat er een waarde per seconde wordt doorgegeven. 
 		textFont(createFont("Arial", 10), 10);			// Geeft de lettertype weer
 		
 		// Both x and y data set here.
@@ -35,8 +30,8 @@ public class ZonnekrachtPaneel extends PApplet {
 		lineChart.showYAxis(true); 						// Laten zien of verbergen van de Y-as
 		lineChart.setMinY(0); 							// Een minimale waarde instellen voor de Y-as
 		lineChart.setMinX(0);							// Een minimale waarde instellen voor de X-as
-		lineChart.setXAxisLabel("Tijd [s]"); 			// Tekst voor op de X-as
-		lineChart.setYAxisLabel("Zonkracht [W/m²]\n"); 	// Tekst voor op de Y-as
+		lineChart.setXAxisLabel("Tijd [min]"); 			// Tekst voor op de X-as
+		lineChart.setYAxisLabel("Zonnekracht [W/m²]\n"); 	// Tekst voor op de Y-as
 
 		lineChart.setLineWidth(1); 						// Dikte van de lijn
 		lineChart.setPointSize(0); 						// Dikte van de punten op de lijn
@@ -54,15 +49,17 @@ public class ZonnekrachtPaneel extends PApplet {
 		text("Zonnekracht", 70, 30); 					// De tekst en de positie
 		textSize(11);									// Grootte tekst onder titel
 		text("Real-Time data van de zonnekracht in Volt.", 70, 45);		//De tekst en positie onder titel
-		xValues.add(x);
-		float xValueArray[] = new float[xValues.size()];
-		for (int i = 0; i < xValues.size() && i < SerialManager.zonnekracht.size(); i++)
-			xValueArray[i] = xValues.get(i);
-		float yValueArray[] = new float[xValues.size()];
-		for (int i = 0; i < xValues.size() && i < SerialManager.zonnekracht.size(); i++)
+		
+		int j = SerialManager.tijd.size();
+		float xValueArray[] = new float[j];
+		for (int i = 0; i < j; i++) {
+			xValueArray[i] = SerialManager.tijd.get(i);
+		}
+		float yValueArray[] = new float[j];
+		for (int i = 0; i < j; i++) {
 			yValueArray[i] = SerialManager.zonnekracht.get(i);
+		}
 
 		lineChart.setData(xValueArray, yValueArray);
-		x++;
 	}
 }
