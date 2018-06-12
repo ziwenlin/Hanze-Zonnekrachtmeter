@@ -13,12 +13,12 @@ public class Presets {
 		this.b = new ButtonHandler(p);		// (new) Nieuw object van de class ButtonHandler
 	}
 
-	public void bedieningspaneel() {
+	public void presetbedieningspaneel() {
 		b.buttonNew(200, 80, 400, 100);
 		b.buttonColor(p.color(160));
 		b.buttonHoverColor(p.color(120));
 		b.buttonAlfa(220);
-		b.buttonTask(()->{Main.paneelZonnekrachtNetto();});
+		b.buttonTask(()->{Main.startPaneelZonnekrachtNetto();}); // Lambda expressie (Functies doorgeven)
 		b.textButton("Grafiek Zonnekracht");
 		b.textColor(p.color(255));
 		b.textSize(36);
@@ -27,7 +27,7 @@ public class Presets {
 		b.buttonColor(p.color(160));
 		b.buttonHoverColor(p.color(120));
 		b.buttonAlfa(220);
-		b.buttonTask(()->{Main.paneelTemperatuur();});
+		b.buttonTask(()->{Main.startPaneelTemperatuur();});
 		b.textButton("Grafiek Temperatuur");
 		b.textColor(p.color(255));
 		b.textSize(36);

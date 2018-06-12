@@ -50,6 +50,7 @@ public class ZonnekrachtPaneel extends PApplet {
 		textSize(11);									// Grootte tekst onder titel
 		text("Real-Time data van de zonnekracht in Volt.", 70, 45);		//De tekst en positie onder titel
 		
+		// Omzetter van lijst naar array
 		int j = SerialManager.tijd.size();
 		float xValueArray[] = new float[j];
 		for (int i = 0; i < j; i++) {
@@ -60,6 +61,6 @@ public class ZonnekrachtPaneel extends PApplet {
 			yValueArray[i] = SerialManager.zonnekracht.get(i);
 		}
 
-		lineChart.setData(xValueArray, yValueArray);
+		lineChart.setData(xValueArray, yValueArray);	// Zend data naar de grafiek
 	}
 }

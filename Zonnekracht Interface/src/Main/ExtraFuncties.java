@@ -3,8 +3,6 @@ package Main;
 import java.util.ArrayList;
 import java.util.List;
 
-import Serial.DateTime;
-
 public class ExtraFuncties {
 
 	public static int stringToInteger(String text) {
@@ -51,32 +49,32 @@ public class ExtraFuncties {
 		return list;
 	}
 	
-	public static List<String> stringDateTimeCutter(String text) {
-		List<String> list = new ArrayList<>();
-		list.add(""); int i = 0;
-		for (char c : text.toCharArray()) {
-			if (c == ':' || c == '-' || c == '/') {
-				list.add("");
-				i++;
-				continue;
-			}
-			list.set(i, list.get(i) + c);
-		}
-		return list;
-	}
-	
-	public static List<String> splitDateTime(String string) {
-		List<String> a = ExtraFuncties.stringDateTimeCutter(string);
-		return a;
-	}
-	
-	public static float getMinute(DateTime startTijd, List<String> list) {		
+//	public static List<String> stringDateTimeCutter(String text) {
+//		List<String> list = new ArrayList<>();
+//		list.add(""); int i = 0;
+//		for (char c : text.toCharArray()) {
+//			if (c == ':' || c == '-' || c == '/') {
+//				list.add("");
+//				i++;
+//				continue;
+//			}
+//			list.set(i, list.get(i) + c);
+//		}
+//		return list;
+//	}
+//	
+//	public static List<String> splitDateTime(String string) {
+//		List<String> a = ExtraFuncties.stringDateTimeCutter(string);
+//		return a;
+//	}
+//	
+//	public static float getMinute(DateTime startTijd, List<String> list) {		
 //		int year = ExtraFuncties.stringToInteger(list.get(0));
 //		int month = ExtraFuncties.stringToInteger(list.get(1));
-		int day = ExtraFuncties.stringToInteger(list.get(2));
-		int hour = ExtraFuncties.stringToInteger(list.get(3));
-		int minute = ExtraFuncties.stringToInteger(list.get(4));
-		int second = ExtraFuncties.stringToInteger(list.get(5));
-		return (float)(day - startTijd.day)*1440 + (float)(hour - startTijd.hour)*60 + (float)(minute - startTijd.minute) + (float)(second - startTijd.second)/60;
-	}
+//		int day = ExtraFuncties.stringToInteger(list.get(2));
+//		int hour = ExtraFuncties.stringToInteger(list.get(3));
+//		int minute = ExtraFuncties.stringToInteger(list.get(4));
+//		int second = ExtraFuncties.stringToInteger(list.get(5));
+//		return (float)(day - startTijd.day)*1440 + (float)(hour - startTijd.hour)*60 + (float)(minute - startTijd.minute) + (float)(second - startTijd.second)/60;
+//	}
 }

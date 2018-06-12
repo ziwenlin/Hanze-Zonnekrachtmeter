@@ -56,6 +56,7 @@ public class TemperatuurPaneel extends PApplet {
 		text("Data van de Temperatuursensor in graden Celcius", 70, 45); // Tekst onder titel
 		
 
+		// Omzetter van lijst naar array
 		int j = SerialManager.tijd.size();
 		float xValueArray[] = new float[j];
 		for (int i = 0; i < j; i++) {
@@ -66,6 +67,6 @@ public class TemperatuurPaneel extends PApplet {
 			yValueArray[i] = SerialManager.temperatuur.get(i);
 		}
 		
-		lineChart.setData(xValueArray, yValueArray);
+		lineChart.setData(xValueArray, yValueArray);	// Zend data naar de grafiek
 	}
 }

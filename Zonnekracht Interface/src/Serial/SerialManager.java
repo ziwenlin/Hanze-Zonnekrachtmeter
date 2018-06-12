@@ -1,8 +1,6 @@
 package Serial;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import Main.ExtraFuncties;
@@ -12,26 +10,29 @@ import processing.serial.Serial;
 public class SerialManager {
 
 	public static PApplet p;
-	public static Serial myPort;
+	public static Serial myPort; // 
 	public static long startTijd = System.currentTimeMillis();
-//	public static LocalDateTime now = LocalDateTime.now();
-//	public static DateTime startTijd = new DateTime(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
+	// Data input
 	public static List<String> inputSerial = new ArrayList<>();
 	public static List<Float> tijd = new ArrayList<>();
 	public static List<Float> zonnekracht = new ArrayList<>();
 	public static List<Float> temperatuur = new ArrayList<>();
-	public static boolean canSplit = false;
+	public static boolean splitNow = false;
 
-	public SerialManager(PApplet p) {
+	public SerialManager(PApplet p) { // Initialisatie van de seriële manager
 		SerialManager.p = p;
+		inputSerial.add("");
+		tijd.add(0f);
+		zonnekracht.add(1f);
+		temperatuur.add(1f);
 	}
 
 	public void serialInit() {
-		if (myPort != null) {
+		if (myPort != null) { // Sluit de seriële poort als die nog actief is
 			myPort.stop();
 			myPort.dispose();
 		}
-		if (Serial.list().length > 0) {
+		if (Serial.list().length > 0) { // Er moet een seriële poort aanwezig te zijn
 			myPort = new Serial(p, Serial.list()[0], 9600);
 			myPort.bufferUntil('\n');
 		}
@@ -40,32 +41,29 @@ public class SerialManager {
 	public void serialLoop() {
 
 		if (myPort == null || !myPort.active()) {
-			serialInit();
+			serialInit(); // Seriële poort is op een of andere manier gestopt.
 		}
 		
 		while (inputSerial.size() > 25) {
-			inputSerial.remove(0);
+			inputSerial.remove(0); // De lijst wordt te lang
 		}
 
-//		list.add("2018/06/06-15:30:45   Temperatuur: 26.00 C   Voltage: 0.30 V");
-//		textMonitor(p);
-		stringsplitter();
+		stringsplitter(); // Split het binnen gekomen informatie
 
 	}
 
 	public static void stringsplitter() {
-		if (inputSerial.size() == 0 && !canSplit ) {			// Nullpointerexception voorkomen
+		if (inputSerial.size() == 0 && !splitNow ) { // Nullpointerexception voorkomen
 			return;
 		}
 		List<String> b = ExtraFuncties.stringCutter(inputSerial.get(inputSerial.size() - 1));
+		splitNow = false;
 		if (b.size() < 7) {
-			return;
+			return; // Het binnengekomen bericht voldoet niet aan de eisen en bevat meestal geen nuttige informatie
 		}
-		canSplit = false;
-		temperatuur.add(ExtraFuncties.stringToFloat(b.get(4)));
-		zonnekracht.add(ExtraFuncties.stringToFloat(b.get(9)));
-//		tijd.add(ExtraFuncties.getMinute(startTijd, ExtraFuncties.splitDateTime(b.get(0))));
-		tijd.add((float) (System.currentTimeMillis() - startTijd)/60000.0f);
+		temperatuur.add(ExtraFuncties.stringToFloat(b.get(4))); // Zet de string om naar een getal
+		zonnekracht.add(ExtraFuncties.stringToFloat(b.get(9))); // Zet de string om naar een getal
+		tijd.add((float) (System.currentTimeMillis() - startTijd)/60000.0f); // De minuten van het programma wordt hier opgeslagen
 	}
 
 

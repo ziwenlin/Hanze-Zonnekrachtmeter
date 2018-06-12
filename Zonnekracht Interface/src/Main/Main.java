@@ -15,32 +15,41 @@ public class Main {
 
 	public static void main(String[] args) {
 		/* Serial COM scherm */
-		paneelBediening();
+		startPaneelBediening();
 		/* Grafiek Zonnekracht */
 		// paneelZonnekrachtNetto();
 		/* Grafiek Temperatuur */
 		// paneelTemperatuur();
 		/* Seriële monitor */
-		paneelSerieleMonitor();
+		startPaneelSerieleMonitor();
 	}
 	
 	public static void toggleSerialMonitor() {
-		paneelMonitor.toggleVisibility();
+		if (paneelMonitor == null) {	// paneelMonitor moet een keer geopend zijn.
+			return; // Er is geen een paneelMonitor aanwezig.
+		}
+		paneelMonitor.toggleVisibility(); // Aan of uitzetten van de seriële monitor.
 	}
 	
-	public static void paneelSerieleMonitor() {
-		paneelMonitor = new SerieleMonitorPaneel();
-		String[] args = { paneelMonitor.getClass().getName() };
-		PApplet.runSketch(args, paneelMonitor);
+	public static void startPaneelSerieleMonitor() {
+		if (paneelMonitor != null) {	// paneelMonitor mag niet nog een keer geopend worden.
+			return; // Er is al een paneelMonitor aanwezig.
+		}
+		paneelMonitor = new SerieleMonitorPaneel(); // Maak een nieuwe paneel aan.
+		String[] args = { paneelMonitor.getClass().getName() }; // Argumenten voor het starten van een paneel
+		PApplet.runSketch(args, paneelMonitor); // Start een nieuwe sketch/window/paneel
 	}
 
-	public static void paneelBediening() {
+	public static void startPaneelBediening() { // Lees startPaneelSerieleMonitor
+		if (paneelBediening != null) {
+			return;
+		}
 		paneelBediening = new BedieningsPaneel();
 		String[] args = { paneelBediening.getClass().getName() };
 		PApplet.runSketch(args, paneelBediening);
 	}
 
-	public static void paneelZonnekrachtNetto() {
+	public static void startPaneelZonnekrachtNetto() { // Lees startPaneelSerieleMonitor
 		if (paneelZonnekracht != null) {
 			return;
 		}
@@ -49,7 +58,7 @@ public class Main {
 		PApplet.runSketch(args, paneelZonnekracht);
 	}
 
-	public static void paneelTemperatuur() {
+	public static void startPaneelTemperatuur() { // Lees startPaneelSerieleMonitor
 		if (paneelTemperatuur != null) {
 			return;
 		}
