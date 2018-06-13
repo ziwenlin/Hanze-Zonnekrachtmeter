@@ -7,8 +7,8 @@ import processing.serial.Serial;
 
 public class SerieleMonitorPaneel extends PApplet {
 
-	private SerialManager sm;
-	public boolean visibility = true;
+	private SerialManager serialM; // Serial Manager
+	public boolean visibility = true; // Zichtbaarheid
 	
 	public void settings() {
 		size(1200, 680); // Venster grootte
@@ -16,8 +16,8 @@ public class SerieleMonitorPaneel extends PApplet {
 	
 	public void setup() {
 
-		sm = new SerialManager(this); // Seriele manager initialiseren
-		sm.serialInit(); // Seriele poort initialiseren
+		serialM = new SerialManager(this); // Seriele manager initialiseren
+		serialM.serialInit(); // Seriele poort initialiseren
 		surface.setResizable(true); // Grootte aanpasbaar
 		toggleVisibility(); // Zichtbaarheid van deze venster
 	}
@@ -29,27 +29,27 @@ public class SerieleMonitorPaneel extends PApplet {
 	
 	public void draw() {
 		background(60); // Achtergrond grijs
-		sm.serialLoop(); // Seriele informatie verwerken
+		serialM.serialLoop(); // Seriele informatie verwerken
 		textMonitor(); // Seriele informatie op het scherm laten zien
 		noLoop(); // Draw mag niet zo vaak worden uitgevoerd
 	}
 
 	public void textMonitor() {
-		if (SerialManager.inputSerial.size() == 0) { // Nullpointerexception voorkomen
+		if (SerialManager.inputSerial.size() == 0) { // Nullpointer Exception Error/Crash voorkomen
 			return;
 		}
 		// Tekst van de laatste binnen komende bericht.
-		rectMode(PConstants.CORNER);
-		textAlign(PConstants.LEFT, PConstants.TOP);
-		textSize(32);
-		text(SerialManager.inputSerial.get(SerialManager.inputSerial.size() - 1),
+		rectMode(PConstants.CORNER); // Positie van de tekst box
+		textAlign(PConstants.LEFT, PConstants.TOP); // Positie van de tekst op het scherm
+		textSize(32); // Tekst grootte 
+		text(SerialManager.inputSerial.get(SerialManager.inputSerial.size() - 1), // Print de tekst op het scherm
 				10, 10, width - 10, height - 10);
 		
 		// Tekst van de laatste aantal binnen komende berichten.
-		textAlign(PConstants.LEFT);
-		textSize(16);
-		for (int i = 0; i < SerialManager.inputSerial.size(); i++) {
-			text(SerialManager.inputSerial.get(i), 10, 20 * (i + 4));
+		textAlign(PConstants.LEFT); // Tekst positie
+		textSize(16); // Tekst grootte
+		for (int i = 0; i < SerialManager.inputSerial.size(); i++) { // Print de tekst op het scherm
+			text(SerialManager.inputSerial.get(i), 10, 20 * (i + 4)); // Print de tekst op het scherm
 		}
 	}
 	

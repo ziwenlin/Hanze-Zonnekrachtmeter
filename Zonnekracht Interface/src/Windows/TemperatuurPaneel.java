@@ -1,7 +1,4 @@
 package Windows;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.gicentre.utils.stat.XYChart;
 
 import Serial.SerialManager;
@@ -10,10 +7,6 @@ import processing.core.PApplet;
 public class TemperatuurPaneel extends PApplet {
 
 	XYChart lineChart;
-	String getal = "0";
-	float x = 0;
-	List<Float> xValues = new ArrayList<Float>();
-	List<Float> yValues = new ArrayList<Float>();
 
 	public void settings() {
 		size(1200, 680);
@@ -55,16 +48,14 @@ public class TemperatuurPaneel extends PApplet {
 		textSize(11);									// Grootte tekst onder titel
 		text("Data van de Temperatuursensor in graden Celcius", 70, 45); // Tekst onder titel
 		
-
-		// Omzetter van lijst naar array
-		int j = SerialManager.tijd.size();
-		float xValueArray[] = new float[j];
-		for (int i = 0; i < j; i++) {
-			xValueArray[i] = SerialManager.tijd.get(i);
+		int j = SerialManager.tijd.size(); // Omzetter van lijst naar array
+		float xValueArray[] = new float[j]; // Array aanmaken
+		for (int i = 0; i < j; i++) { // Iterate over de lijst
+			xValueArray[i] = SerialManager.tijd.get(i); // Vul de array in
 		}
-		float yValueArray[] = new float[j];
-		for (int i = 0; i < j; i++) {
-			yValueArray[i] = SerialManager.temperatuur.get(i);
+		float yValueArray[] = new float[j]; // Array aanmaken
+		for (int i = 0; i < j; i++) { // Iterate over de lijst
+			yValueArray[i] = SerialManager.zonnekracht.get(i); // Vul de array met data in
 		}
 		
 		lineChart.setData(xValueArray, yValueArray);	// Zend data naar de grafiek

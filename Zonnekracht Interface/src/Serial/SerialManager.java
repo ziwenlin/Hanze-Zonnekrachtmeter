@@ -10,21 +10,22 @@ import processing.serial.Serial;
 public class SerialManager {
 
 	public static PApplet p;
-	public static Serial myPort; // 
-	public static long startTijd = System.currentTimeMillis();
+	public static Serial myPort; // Seriele p
+	public static long startTijd = System.currentTimeMillis(); // Systeem tijd in (long)
 	// Data input
 	public static List<String> inputSerial = new ArrayList<>();
 	public static List<Float> tijd = new ArrayList<>();
 	public static List<Float> zonnekracht = new ArrayList<>();
 	public static List<Float> temperatuur = new ArrayList<>();
+	// Commando om de input te verdelen
 	public static boolean splitNow = false;
 
 	public SerialManager(PApplet p) { // Initialisatie van de seriële manager
 		SerialManager.p = p;
-		inputSerial.add("");
-		tijd.add(0f);
-		zonnekracht.add(1f);
-		temperatuur.add(1f);
+		inputSerial.add(""); // Eerste waarde toevoegen aan de lijst
+		tijd.add(0f); // Eerste waarde toevoegen aan de lijst
+		zonnekracht.add(1f); // Eerste waarde toevoegen aan de lijst
+		temperatuur.add(1f); // Eerste waarde toevoegen aan de lijst
 	}
 
 	public void serialInit() {

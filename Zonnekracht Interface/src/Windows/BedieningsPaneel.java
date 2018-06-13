@@ -6,10 +6,8 @@ import processing.core.PImage;
 
 public class BedieningsPaneel extends PApplet {
 
-	private Presets preset;
-	private int inactivity = 0;
-	private PImage bg;
-	public static boolean mouseP = false;
+	private Presets preset; // Preset
+	private PImage bg; // Achtergrond 
 	
 	public void settings() {
 		size(1080, 640); // Grootte van het venster
@@ -29,32 +27,31 @@ public class BedieningsPaneel extends PApplet {
 	public void draw() {
 		image(bg, width/2, height/2, width, height); // Achtergrond
 		preset.draw(); 	// Teken de knoppen
-		
-		if (inactivity > 3) // Inactiviteit tot 3 frames
-			noLoop(); // Energie besparing
-		inactivity++; // Inactiviteit met 1 omhoog
-		mouseP = false; // Muis is niet ingedrukt
+
+		noLoop();
 	}
 	
+	/*
+	 * 
+	 * Eventhandlers
+	 * 
+	 * (non-Javadoc)
+	 * @see processing.core.PApplet#mouseReleased()
+	 */
+	
 	public void mouseReleased() {
-		mouseP = true;
-		inactivity = 0;
 		loop();
 	}
 	
 	public void mouseDragged() {
-		inactivity = 0;
 		loop();
 	}
 	
 	public void mouseClicked() {
-		mouseP = true;
-		inactivity = 0;
 		loop();
 	}
 	
 	public void mouseMoved() {
-		inactivity = 0;
 		loop();
 	}
 

@@ -9,31 +9,37 @@ public class ButtonHandler {
 
 	private PApplet p;
 	private List<Button> button = new ArrayList<>();
-	
+
 	public ButtonHandler(PApplet p) { // Button handler initialiseren
 		this.p = p;
 	}
-	
-	public void buttonNew(float a, float b, float c, float d) { // Toevoegen knop
+
+	public void buttonNew(float a, float b, float c, float d) { // Toevoegen nieuwe knop
 		button.add(0, new Button(p, a, b, c, d)); // First in, last out
 	}
-	
-	public void drawButtons() { // Knop renderen
-		for (Button b : this.button) {
+
+	public void drawButtons() { // Knoppen renderen op het scherm
+		for (Button b : this.button) { // Iteratie over de "Array"
 			b.drawButton();
 		}
 	}
 
-	public void buttonMode(int mode) { // Knop positie
+	public Button getButton() {
+		return button.get(0);
+	}
+
+	/*
+	 * 
+	 * Settings instellen voor de buttons
+	 * 
+	 */
+	
+	public void buttonMode(int mode) {
 		getButton().setMode(mode);
 	}
 
-	public void textButton(String string) { // Knop tekst
+	public void textButton(String string) {
 		getButton().setText(string);
-	}
-	
-	public Button getButton() { // Knop van de lijst
-		return button.get(0);
 	}
 
 	public void textColor(int color) {

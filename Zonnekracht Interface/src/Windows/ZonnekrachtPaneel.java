@@ -7,10 +7,9 @@ import processing.core.PApplet;
 public class ZonnekrachtPaneel extends PApplet {
 
 	XYChart lineChart;
-	String getal = "0";
 
 	public void settings() {
-		size(1200, 680);									// De grootte van de window
+		size(1200, 680);								// De grootte van de window
 
 	}
 
@@ -49,16 +48,15 @@ public class ZonnekrachtPaneel extends PApplet {
 		text("Zonnekracht", 70, 30); 					// De tekst en de positie
 		textSize(11);									// Grootte tekst onder titel
 		text("Real-Time data van de zonnekracht in Volt.", 70, 45);		//De tekst en positie onder titel
-		
-		// Omzetter van lijst naar array
-		int j = SerialManager.tijd.size();
-		float xValueArray[] = new float[j];
-		for (int i = 0; i < j; i++) {
-			xValueArray[i] = SerialManager.tijd.get(i);
+
+		int j = SerialManager.tijd.size(); // Omzetter van lijst naar array
+		float xValueArray[] = new float[j]; // Array aanmaken
+		for (int i = 0; i < j; i++) { // Iterate over de lijst
+			xValueArray[i] = SerialManager.tijd.get(i); // Vul de array in
 		}
-		float yValueArray[] = new float[j];
-		for (int i = 0; i < j; i++) {
-			yValueArray[i] = SerialManager.zonnekracht.get(i);
+		float yValueArray[] = new float[j]; // Array aanmaken
+		for (int i = 0; i < j; i++) { // Iterate over de lijst
+			yValueArray[i] = SerialManager.zonnekracht.get(i); // Vul de array met data in
 		}
 
 		lineChart.setData(xValueArray, yValueArray);	// Zend data naar de grafiek

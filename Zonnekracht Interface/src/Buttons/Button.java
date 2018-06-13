@@ -1,6 +1,5 @@
 package Buttons;
 
-import Windows.BedieningsPaneel;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -40,24 +39,26 @@ public class Button {
 	 * De knop op het scherm laten weergeven.
 	 */
 	public void drawButton() {
-		hovering = isHovering();
-		p.fill((hovering) ? hoverColor : color, alfa);
-		p.rectMode(mode);
-		p.rect(minX, minY, maxX, maxY);
+		hovering = isHovering(); // Is de muis op de knop?
+		
+		p.fill((hovering) ? hoverColor : color, alfa); // Settings voor de knop
+		p.rectMode(mode); // Positie van de knop
+		p.rect(minX, minY, maxX, maxY); // Hoek tekenen
 		
 		if (text == null) { // Heeft de knop text?
 			return;
 		}
-		p.fill(textColor, alfa);
-		p.textAlign(mode, mode);
-		p.textSize(textSize);
-		p.text(text, minX, minY - 2.5f, maxX, maxY);
+		p.fill(textColor, alfa); // Settings voor de tekst van de knop
+		p.textAlign(mode, mode); // Positie van de knop
+		p.textSize(textSize); // Tekst grootte
+		p.text(text, minX, minY - 2.5f, maxX, maxY); // De text
 		
-		if (!running && BedieningsPaneel.mouseP && hovering && task != null) {
+		if (!running && p.mouseButton == PConstants.LEFT // Checkt dat de knop voor het eerst is ingedrukt
+				&& hovering && task != null) { // zodat de taak niet meer dan 1 keer wordt uitgevoerd
 			task.run();		// Lambda expressie (Functie uitvoeren)
-			running = true;
+			running = true; // Knop is ingedrukt
 		} else {
-			running = false;
+			running = false; // Knop is niet ingedrukt
 		}
 	}
 
@@ -70,6 +71,12 @@ public class Button {
 				&& p.mouseY < (minY + maxY / 2));
 	}
 
+	/*
+	 * 
+	 * AUTO-GENERATED Getters/Setters
+	 * 
+	 */
+	
 	public int getMode() {
 		return mode;
 	}
@@ -112,6 +119,78 @@ public class Button {
 
 	public void setTask(Runnable task) {
 		this.task = task;
+	}
+
+	public PApplet getP() {
+		return p;
+	}
+
+	public void setP(PApplet p) {
+		this.p = p;
+	}
+
+	public float getMinX() {
+		return minX;
+	}
+
+	public void setMinX(float minX) {
+		this.minX = minX;
+	}
+
+	public float getMaxX() {
+		return maxX;
+	}
+
+	public void setMaxX(float maxX) {
+		this.maxX = maxX;
+	}
+
+	public float getMinY() {
+		return minY;
+	}
+
+	public void setMinY(float minY) {
+		this.minY = minY;
+	}
+
+	public float getMaxY() {
+		return maxY;
+	}
+
+	public void setMaxY(float maxY) {
+		this.maxY = maxY;
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
+
+	public int getColor() {
+		return color;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public int getTextSize() {
+		return textSize;
+	}
+
+	public float getAlfa() {
+		return alfa;
+	}
+
+	public Runnable getTask() {
+		return task;
+	}
+
+	public void setHovering(boolean hovering) {
+		this.hovering = hovering;
 	}
 
 }

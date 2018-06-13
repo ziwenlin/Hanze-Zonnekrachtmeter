@@ -5,15 +5,15 @@ import processing.core.PApplet;
 
 public class Presets {
 
-	PApplet p;
-	ButtonHandler b;
+	PApplet p; // Processing class/sketch
+	ButtonHandler b; // Knoppen handler
 
 	public Presets(PApplet p) {
 		this.p = p;							// (this) Verwijzing naar de class Processing Sketch
 		this.b = new ButtonHandler(p);		// (new) Nieuw object van de class ButtonHandler
 	}
 
-	public void presetbedieningspaneel() {
+	public void presetbedieningspaneel() { // Knoppen instellingen voor de bedieningspaneel
 		b.buttonNew(200, 80, 400, 100);
 		b.buttonColor(p.color(160));
 		b.buttonHoverColor(p.color(120));
@@ -61,6 +61,6 @@ public class Presets {
 	}
 
 	public void draw() {
-		b.drawButtons();
+		b.drawButtons(); // Knoppen tekenen
 	}
 }
