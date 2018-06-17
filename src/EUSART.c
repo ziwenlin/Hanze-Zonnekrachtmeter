@@ -12,7 +12,7 @@ void _UART1Send(uint8_t *message) {
     //while (TXSTA1bits.TRMT == 0);
     //TXREG1 = 0x0A;
     while (TXSTA1bits.TRMT == 0);
-    TXREG1 = 0x00;
+    TXREG1 = 0x0A;
 }
 
 void _UART1Init(unsigned long BRate) {
@@ -40,7 +40,7 @@ void _UART2Send(uint8_t *message) {
     //while (TXSTA2bits.TRMT == 0);
     //TXREG2 = 0x0A;
     while (TXSTA2bits.TRMT == 0);
-    TXREG2 = 0x00;
+    TXREG2 = 0x0A0;
 }
 
 void _UART2Init(unsigned long BRate) {
