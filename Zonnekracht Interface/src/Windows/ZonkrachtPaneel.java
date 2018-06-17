@@ -47,7 +47,7 @@ public class ZonkrachtPaneel extends PApplet {
 		textSize(20); 									// Grootte tekst titel
 		text("Zonkracht", 70, 30); 					// De tekst en de positie
 		textSize(11);									// Grootte tekst onder titel
-		text("Real-Time data van de Zonkracht in Volt.", 70, 45);		//De tekst en positie onder titel
+		text("Real-Time data van de Zonkracht in Watt per meter².", 70, 45);		//De tekst en positie onder titel
 
 		int j = SerialManager.tijd.size(); // Omzetter van lijst naar array
 		float xValueArray[] = new float[j]; // Array aanmaken

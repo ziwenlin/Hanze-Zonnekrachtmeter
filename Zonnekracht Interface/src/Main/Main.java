@@ -8,10 +8,10 @@ import processing.core.PApplet;
 
 public class Main {
 
-	static BedieningsPaneel paneelBediening;
-	static TemperatuurPaneel paneelTemperatuur;
-	static ZonkrachtPaneel paneelZonkracht;
-	static SerieleMonitorPaneel paneelMonitor;
+	public static BedieningsPaneel paneelBediening;
+	public static TemperatuurPaneel paneelTemperatuur;
+	public static ZonkrachtPaneel paneelZonkracht;
+	public static SerieleMonitorPaneel paneelMonitor;
 
 	public static void main(String[] args) {
 		/* Serial COM scherm */
