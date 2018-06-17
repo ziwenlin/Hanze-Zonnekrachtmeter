@@ -59,16 +59,16 @@ void setDay(uint8_t day);
 #define toDay(day) bcdtodec(day)
 #define toYear(year) bcdtodec(year)
 
-#define trSeconds(second) dectobcd(second)
-#define trMinutes(minute) dectobcd(minute)
-#define trDay(day) dectobcd(day)
-#define trYear(year) dectobcd(year)
-#define trHour(hour) dectobcd(hour)
+#define rtcSeconds(second) dectobcd(second)
+#define rtcMinutes(minute) dectobcd(minute)
+#define rtcDay(day) dectobcd(day)
+#define rtcYear(year) dectobcd(year)
+#define rtcHour(hour) dectobcd(hour)
 
 void toHour(uint8_t *hour);
 void toMonth(uint8_t *month, uint8_t *year);
 
-void trMonth(uint8_t *month, uint8_t *year);
+void rtcMonth(uint8_t *month, uint8_t *year);
 
 void bcdtodec(uint8_t *dec);
 void dectobcd(uint8_t *bcd);

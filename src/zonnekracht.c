@@ -8,5 +8,5 @@ void getADC9(float *zonnekracht){ //PV-paneel
     ADCON2 = 0xAE; //Right justified, Tad = 0, Conversion Clock Fosc/32
     while(ADCON0bits.GO); //Conversion Ready
     adc = ADRESH<<8|ADRESL;
-    *zonnekracht = adc / 4096.0 * 5.0;
+    *zonnekracht = adc / 4096.0 * 1000.0;
 }

@@ -24,7 +24,6 @@
       <itemPath>src/I2C.c</itemPath>
       <itemPath>src/EUSART.c</itemPath>
       <itemPath>src/timers.c</itemPath>
-      <itemPath>src/SPI.c</itemPath>
       <itemPath>src/DS18B20.c</itemPath>
       <itemPath>src/onewire.c</itemPath>
       <itemPath>src/zonnekracht.c</itemPath>
@@ -151,7 +150,6 @@
         <property key="ToolFirmwareFilePath"
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

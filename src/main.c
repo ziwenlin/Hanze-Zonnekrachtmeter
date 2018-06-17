@@ -5,7 +5,11 @@
 #include "DS3231.h"
 #include "DS18B20.h"
 #include "onewire.h"
-
+/*
+ * 
+ * Initialisatie/Declaratie variabelen
+ *
+ */
 uint8_t hour = 0, minute = 0, second = 0,
         dow = 1, day = 1, month = 1, year = 20;
 uint16_t year1 = 2000;
@@ -19,12 +23,12 @@ uint8_t rx1length = 0, rx2length = 0;
 char message[80], msgrx1[80], msgrx2[80];
 
 void main(void) {
-    setup();
+    setup(); 
     while (1) {
-        if (start) loop();
-        if (read1);
-        if (read2);
-        start = 0;
+        if (start && !read1 && !read2) loop();
+//        if (read1);
+//        if (read2);
+        start = 0; // Wacht tot de volgende seconde
         while (!start);
     }
 }
@@ -35,7 +39,9 @@ void setup() {
     _I2CInit(100000); // I2C initialisatie
     timer0init(&timer0, 1000); // Timer initialisatie
     ANCON0bits.ANSEL1 = 0; // Pin 3 ADC uit
-    ei();
+    ei(); // Alle interrupts aan
+    sprintf(&message, "Jaar,Maand,Dag,Uur,Minuut,Temperatuur,Zonnekracht"); // CSV tabel formaat
+    _UART2Send(&message); // Verstuur bericht
 }
 
 void loop() {
@@ -46,22 +52,22 @@ void loop() {
     getADC9(&adc); // Analoge waarde van de 9de ADC lezen
     sprintf(&message, "%04d/%02d/%02d-%02d:%02d:%02d   Temperatuur: %f C   Zonnekracht: %f w/m2", 
             (year1 + year), month, day, hour, minute, second, temp, adc); // Maakt bericht klaar
-    _UART2Send(&message); // Verstuur bericht
+    _UART1Send(&message); // Verstuur bericht
     tempAvg = (tempAvg * count + temp) / (count + 1); // Gemiddelde temperatuur bereken
     adcAvg = (adcAvg * count + adc) / (count + 1); // Gemiddelde waarde van de ADC berekenen
     count++;
     if (count >= 60){
-        sprintf(&message, "%04d,%02d,%02d,%02d,%02d,%f,%f", 
+        sprintf(&message, "%04d,%02d,%02d,%02d,%02d,%f,%f",  // Bericht klaarmaken aan het CSV formaat
                 (year1 + year), month, day, hour, minute, tempAvg, adcAvg);
-        _UART1Send(&message); // Verstuur bericht
+        _UART2Send(&message); // Verstuur bericht
         count = 0; 
     }
 }
 
-void interrupt isr(void) {
+void interrupt isr(void) { // Interrupt Service Routine
     if (PIR1bits.SSPIF == 1) {
         PIR1bits.SSPIF = 0; /* MSSP Buffer full */
-        if (SSPCON1bits.WCOL || SSPCON1bits.SSPOV) {
+        if (SSPCON1bits.WCOL || SSPCON1bits.SSPOV) { // Error bits
             SSPCON1bits.SSPOV = 0; // Clear the overflow flag
             SSPCON1bits.WCOL = 0; // Clear the collision bit
         }
@@ -79,10 +85,5 @@ void interrupt isr(void) {
         msgrx1[rx1length] = RCREG1;
         read1 = (msgrx1[rx1length] == '\n') ? 1 : 0;
         rx1length++;
-    }
-    if (PIR3bits.RC2IF) { // Rx2 Interrupt Flag
-        msgrx2[rx2length] = RCREG2;
-        read2 = (msgrx2[rx2length] == '\n') ? 1 : 0;
-        rx2length++;
     }
 }

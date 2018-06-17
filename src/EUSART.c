@@ -1,18 +1,18 @@
 #include "EUSART.h"
 
 void _UART1Receive(uint8_t *message) {
-    *message = RCREG1;
+    *message = RCREG1; // Data actief ontvangen
 }
 
 void _UART1Send(uint8_t *message) {
-    for (uint16_t i = 0; *(message + i) != '\0'; i++) {
-        while (TXSTA1bits.TRMT == 0);
-        TXREG1 = *(message + i);
+    for (uint16_t i = 0; *(message + i) != '\0'; i++) { // String iteratie
+        while (TXSTA1bits.TRMT == 0); // Wacht tot TXREG1 ready is
+        TXREG1 = *(message + i); // Stuur data in positie i
     }
     //while (TXSTA1bits.TRMT == 0);
     //TXREG1 = 0x0A;
-    while (TXSTA1bits.TRMT == 0);
-    TXREG1 = 0x0A;
+    while (TXSTA1bits.TRMT == 0); // Wacht tot TXREG1 ready is
+    TXREG1 = 0x0A; // '\n'
 }
 
 void _UART1Init(unsigned long BRate) {
@@ -29,18 +29,18 @@ void _UART1Init(unsigned long BRate) {
 }
 
 void _UART2Receive(uint8_t* message) {
-    *message = RCREG2;
+    *message = RCREG2; // Data actief ontvangen
 }
 
 void _UART2Send(uint8_t *message) {
-    for (uint16_t i = 0; *(message + i) != '\0'; i++) {
-        while (TXSTA2bits.TRMT == 0);
-        TXREG2 = *(message + i);
+    for (uint16_t i = 0; *(message + i) != '\0'; i++) { // String iteratie
+        while (TXSTA2bits.TRMT == 0); // Wacht tot TXREG2 klaar is
+        TXREG2 = *(message + i); // Stuur data in positie i
     }
     //while (TXSTA2bits.TRMT == 0);
     //TXREG2 = 0x0A;
-    while (TXSTA2bits.TRMT == 0);
-    TXREG2 = 0x0A0;
+    while (TXSTA2bits.TRMT == 0); // Wacht tot TXREG2 klaar is
+    TXREG2 = 0x0A0; // '\n'
 }
 
 void _UART2Init(unsigned long BRate) {
