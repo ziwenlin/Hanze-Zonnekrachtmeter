@@ -15,7 +15,7 @@ public class SerialManager {
 	// Data input
 	public static List<String> inputSerial = new ArrayList<>();
 	public static List<Float> tijd = new ArrayList<>();
-	public static List<Float> zonnekracht = new ArrayList<>();
+	public static List<Float> zonkracht = new ArrayList<>();
 	public static List<Float> temperatuur = new ArrayList<>();
 	// Commando om de input te verdelen
 	public static boolean splitNow = false;
@@ -24,7 +24,7 @@ public class SerialManager {
 		SerialManager.p = p;
 		inputSerial.add(""); // Eerste waarde toevoegen aan de lijst
 		tijd.add(0f); // Eerste waarde toevoegen aan de lijst
-		zonnekracht.add(1f); // Eerste waarde toevoegen aan de lijst
+		zonkracht.add(1f); // Eerste waarde toevoegen aan de lijst
 		temperatuur.add(1f); // Eerste waarde toevoegen aan de lijst
 	}
 
@@ -63,7 +63,7 @@ public class SerialManager {
 			return; // Het binnengekomen bericht voldoet niet aan de eisen en bevat meestal geen nuttige informatie
 		}
 		temperatuur.add(ExtraFuncties.stringToFloat(b.get(4))); // Zet de string om naar een getal
-		zonnekracht.add(ExtraFuncties.stringToFloat(b.get(9))); // Zet de string om naar een getal
+		zonkracht.add(ExtraFuncties.stringToFloat(b.get(9))); // Zet de string om naar een getal
 		tijd.add((float) (System.currentTimeMillis() - startTijd)/60000.0f); // De minuten van het programma wordt hier opgeslagen
 	}
 

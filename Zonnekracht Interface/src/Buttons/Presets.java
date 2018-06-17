@@ -18,8 +18,8 @@ public class Presets {
 		b.buttonColor(p.color(160));
 		b.buttonHoverColor(p.color(120));
 		b.buttonAlfa(220);
-		b.buttonTask(()->{Main.startPaneelZonnekrachtNetto();}); // Lambda expressie (Functies doorgeven)
-		b.textButton("Grafiek Zonnekracht");
+		b.buttonTask(()->{Main.startPaneelZonkrachtNetto();}); // Lambda expressie (Functies doorgeven)
+		b.textButton("Grafiek Zonkracht");
 		b.textColor(p.color(255));
 		b.textSize(36);
 

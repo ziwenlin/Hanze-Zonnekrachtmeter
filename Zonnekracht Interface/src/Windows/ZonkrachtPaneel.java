@@ -4,7 +4,7 @@ import org.gicentre.utils.stat.XYChart;
 import Serial.SerialManager;
 import processing.core.PApplet;
 
-public class ZonnekrachtPaneel extends PApplet {
+public class ZonkrachtPaneel extends PApplet {
 
 	XYChart lineChart;
 
@@ -30,7 +30,7 @@ public class ZonnekrachtPaneel extends PApplet {
 		lineChart.setMinY(0); 							// Een minimale waarde instellen voor de Y-as
 		lineChart.setMinX(0);							// Een minimale waarde instellen voor de X-as
 		lineChart.setXAxisLabel("Tijd [min]"); 			// Tekst voor op de X-as
-		lineChart.setYAxisLabel("Zonnekracht [W/m²]\n"); 	// Tekst voor op de Y-as
+		lineChart.setYAxisLabel("Zonkracht [W/m²]\n"); 	// Tekst voor op de Y-as
 
 		lineChart.setLineWidth(1); 						// Dikte van de lijn
 		lineChart.setPointSize(0); 						// Dikte van de punten op de lijn
@@ -45,9 +45,9 @@ public class ZonnekrachtPaneel extends PApplet {
 
 		fill(200, 200, 0); 								// Kleur tekst titel
 		textSize(20); 									// Grootte tekst titel
-		text("Zonnekracht", 70, 30); 					// De tekst en de positie
+		text("Zonkracht", 70, 30); 					// De tekst en de positie
 		textSize(11);									// Grootte tekst onder titel
-		text("Real-Time data van de zonnekracht in Volt.", 70, 45);		//De tekst en positie onder titel
+		text("Real-Time data van de Zonkracht in Volt.", 70, 45);		//De tekst en positie onder titel
 
 		int j = SerialManager.tijd.size(); // Omzetter van lijst naar array
 		float xValueArray[] = new float[j]; // Array aanmaken
@@ -56,7 +56,7 @@ public class ZonnekrachtPaneel extends PApplet {
 		}
 		float yValueArray[] = new float[j]; // Array aanmaken
 		for (int i = 0; i < j; i++) { // Iterate over de lijst
-			yValueArray[i] = SerialManager.zonnekracht.get(i); // Vul de array met data in
+			yValueArray[i] = SerialManager.zonkracht.get(i); // Vul de array met data in
 		}
 
 		lineChart.setData(xValueArray, yValueArray);	// Zend data naar de grafiek

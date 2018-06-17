@@ -3,21 +3,21 @@ package Main;
 import Windows.BedieningsPaneel;
 import Windows.SerieleMonitorPaneel;
 import Windows.TemperatuurPaneel;
-import Windows.ZonnekrachtPaneel;
+import Windows.ZonkrachtPaneel;
 import processing.core.PApplet;
 
 public class Main {
 
 	static BedieningsPaneel paneelBediening;
 	static TemperatuurPaneel paneelTemperatuur;
-	static ZonnekrachtPaneel paneelZonnekracht;
+	static ZonkrachtPaneel paneelZonkracht;
 	static SerieleMonitorPaneel paneelMonitor;
 
 	public static void main(String[] args) {
 		/* Serial COM scherm */
 		startPaneelBediening();
-		/* Grafiek Zonnekracht */
-		// paneelZonnekrachtNetto();
+		/* Grafiek Zonkracht */
+		// paneelZonkrachtNetto();
 		/* Grafiek Temperatuur */
 		// paneelTemperatuur();
 		/* Seriële monitor */
@@ -49,13 +49,13 @@ public class Main {
 		PApplet.runSketch(args, paneelBediening);
 	}
 
-	public static void startPaneelZonnekrachtNetto() { // Lees startPaneelSerieleMonitor
-		if (paneelZonnekracht != null) {
+	public static void startPaneelZonkrachtNetto() { // Lees startPaneelSerieleMonitor
+		if (paneelZonkracht != null) {
 			return;
 		}
-		paneelZonnekracht = new ZonnekrachtPaneel();
-		String[] args = { paneelZonnekracht.getClass().getName() };
-		PApplet.runSketch(args, paneelZonnekracht);
+		paneelZonkracht = new ZonkrachtPaneel();
+		String[] args = { paneelZonkracht.getClass().getName() };
+		PApplet.runSketch(args, paneelZonkracht);
 	}
 
 	public static void startPaneelTemperatuur() { // Lees startPaneelSerieleMonitor

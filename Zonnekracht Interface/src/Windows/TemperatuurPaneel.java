@@ -55,7 +55,7 @@ public class TemperatuurPaneel extends PApplet {
 		}
 		float yValueArray[] = new float[j]; // Array aanmaken
 		for (int i = 0; i < j; i++) { // Iterate over de lijst
-			yValueArray[i] = SerialManager.zonnekracht.get(i); // Vul de array met data in
+			yValueArray[i] = SerialManager.zonkracht.get(i); // Vul de array met data in
 		}
 		
 		lineChart.setData(xValueArray, yValueArray);	// Zend data naar de grafiek
